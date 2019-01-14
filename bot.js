@@ -53,18 +53,18 @@ client.on('message', async msg => {
  
     if (command === `play`) {
         const voiceChannel = msg.member.voiceChannel;
-        if (!voiceChannel) return msg.channel.send(':x: **You must be in Voice Channel**');
+        if (!voiceChannel) return msg.channel.send('**يجب تواجدك بروم صوتي **');
         const permissions = voiceChannel.permissionsFor(msg.client.user);
         if (!permissions.has('CONNECT')) {
            
-            return msg.channel.send(':no_good: **No permission to Speak in the Voice Channel**');
+            return msg.channel.send('**لا يتواجد لدي صلاحية للتكلم بهذا الروم**');
         }
         if (!permissions.has('SPEAK')) {
-            return msg.channel.send(':no_good: **No permission to connect in the Voice Channel**');
+            return msg.channel.send('**لا يتواجد لدي صلاحية للتكلم بهذا الروم**');
         }
  
         if (!permissions.has('EMBED_LINKS')) {
-            return msg.channel.sendMessage(":no_entry_sign: ** The embed property must be available**")
+            return msg.channel.sendMessage("**يجب توآفر برمشن `EMBED LINKS`لدي **")
         }
  
         if (url.match(/^https?:\/\/(www.youtube.com|youtube.com)\/playlist(.*)$/)) {
@@ -75,7 +75,7 @@ client.on('message', async msg => {
                 const video2 = await youtube.getVideoByID(video.id); // eslint-disable-line no-await-in-loop
                 await handleVideo(video2, msg, voiceChannel, true); // eslint-disable-line no-await-in-loop
             }
-            return msg.channel.send(` **${playlist.title}:white_check_mark: **Has been added to the playlist**`);
+            return msg.channel.send(` **${playlist.title}** تم الإضافة إلى قأئمة التشغيل`);
         } else {
             try {
  
@@ -85,7 +85,7 @@ client.on('message', async msg => {
                     var videos = await youtube.searchVideos(searchString, 5);
                     let index = 0;
                     const embed1 = new Discord.RichEmbed()
-                    .setDescription(`:white_check_mark: **Song selection. Type the song number to continue.** :
+                    .setDescription(`**الرجاء إختيار رقم المقطع** :
 ${videos.map(video2 => `[**${++index} **] \`${video2.title}\``).join('\n')}`)
  
                     .setFooter("Claudius Server.")
@@ -100,66 +100,66 @@ ${videos.map(video2 => `[**${++index} **] \`${video2.title}\``).join('\n')}`)
                         });
                     } catch (err) {
                         console.error(err);
-                        return msg.channel.send(':x: **No soundtrack selected**');
+                        return msg.channel.send('**لم يتم إختيار مقطع صوتي**');
                     }
                     const videoIndex = parseInt(response.first().content);
                     var video = await youtube.getVideoByID(videos[videoIndex - 1].id);
                 } catch (err) {
                     console.error(err);
-                    return msg.channel.send(':x: **No search results available**');
+                    return msg.channel.send(':X: **لا يتوفر نتائج بحث** ');
                 }
             }
  
             return handleVideo(video, msg, voiceChannel);
         }
     } else if (command === `skip`) {
-        if (!msg.member.voiceChannel) return msg.channel.send(':no_good: **You'r not in the  Voice Channel**');
-        if (!serverQueue) return msg.channel.send(':x: **There seems to be no track to skip**');
-        serverQueue.connection.dispatcher.end(':white_check_mark: **The DJ has decided to skip**');
+        if (!msg.member.voiceChannel) return msg.channel.send('**أنت لست بروم صوتي **');
+        if (!serverQueue) return msg.channel.send('**لا يتوفر مقطع لتجاوزة**');
+        serverQueue.connection.dispatcher.end('**تم تجاوز هذا المقطع**');
         return undefined;
     } else if (command === `leave`) {
-        if (!msg.member.voiceChannel) return msg.channel.send(' :x: **You'r nor in Voice Channel..**');
-        if (!serverQueue) return msg.channel.send(':x: **No soundtrack available to stop it**');
+        if (!msg.member.voiceChannel) return msg.channel.send('**أنت لست بروم صوتي **');
+        if (!serverQueue) return msg.channel.send('**لا يتوفر مقطع لإيقافه**');
         serverQueue.songs = [];
-        serverQueue.connection.dispatcher.end(':white_check_mark: **The DJ has decided to skip**');
+        serverQueue.connection.dispatcher.end('**تم إيقاف هذا المقطع**');
         return undefined;
     } else if (command === `vol`) {
-        if (!msg.member.voiceChannel) return msg.channel.send(':x: **You are not a voice channel**');
-        if (!serverQueue) return msg.channel.send(' :x: **I cannot find any music player here...**');
-        if (!args[1]) return msg.channel.send(`:loud_sound: Sound level **${serverQueue.volume}**`);
+        if (!msg.member.voiceChannel) return msg.channel.send('**أنت لست بروم صوتي **');
+        if (!serverQueue) return msg.channel.send('**لا يوجد شيء قيد التشغيل**');
+        if (!args[1]) return msg.channel.send(`:loud_sound: مستوى الصوت **${serverQueue.volume}**`);
         serverQueue.volume = args[1];
         serverQueue.connection.dispatcher.setVolumeLogarithmic(args[1] / 50);
-        return msg.channel.send(`:speaker: Sound changed to **${args[1]}**`);
+        return msg.channel.send(`:speaker: تم تغير الصوت الي **${args[1]}**`);
     } else if (command === `np`) {
-        if (!serverQueue) return msg.channel.send(':x: Nothing playing Now.**');
+        if (!serverQueue) return msg.channel.send('**لا يوجد شيء حالي قيد التشغيل**');
         const embedNP = new Discord.RichEmbed()
-    .setDescription(`:notes: Playing Now : **${serverQueue.songs[0].title}**`)
+    .setDescription(`:notes: الان يتم تشغيل : **${serverQueue.songs[0].title}**`)
         return msg.channel.sendEmbed(embedNP);
     } else if (command === `queue`) {
        
-        if (!serverQueue) return msg.channel.send(':x: **Nothing playing Now.**');
+        if (!serverQueue) return msg.channel.send('**لا يوجد شيء حالي قيد التشغيل**');
         let index = 0;
        
         const embedqu = new Discord.RichEmbed()
  
 .setDescription(`**Songs Queue**
 ${serverQueue.songs.map(song => `**${++index} -** ${song.title}`).join('\n')}
-**Playing Now ** ${serverQueue.songs[0].title}`)
+**الان يتم تشغيل** ${serverQueue.songs[0].title}`)
         return msg.channel.sendEmbed(embedqu);
     } else if (command === `stop`) {
         if (serverQueue && serverQueue.playing) {
             serverQueue.playing = false;
             serverQueue.connection.dispatcher.pause();
-            return msg.channel.send('**Paused ** :pause_button:');
+            return msg.channel.send('تم إيقاف الموسيقى مؤقتا!');
         }
-        return msg.channel.send(':x: **Nothing playing now.**');
+        return msg.channel.send('لا يوجد شيء حالي ف العمل.');
     } else if (command === "resume") {
         if (serverQueue && !serverQueue.playing) {
             serverQueue.playing = true;
             serverQueue.connection.dispatcher.resume();
-            return msg.channel.send(':fast_forward: **Skipped **');
+            return msg.channel.send(' :white_check_mark: **تم استئناف الموسيقى **');
         }
-        return msg.channel.send(':x: **Nothing playing now.**');
+        return msg.channel.send('**لا يوجد شيء حالي قيد التشغيل **');
     }
  
     return undefined;
@@ -195,13 +195,13 @@ async function handleVideo(video, msg, voiceChannel, playlist = false) {
         } catch (error) {
             console.error(`I could not join the voice channel: ${error}`);
             queue.delete(msg.guild.id);
-            return msg.channel.send(`**I can not access the audio channel** ${error}`);
+            return msg.channel.send(`**لا أستطيع دخول هذا الروم** ${error}`);
         }
     } else {
         serverQueue.songs.push(song);
         console.log(serverQueue.songs);
         if (playlist) return undefined;
-        else return msg.channel.send(` **${song.title}** The song has been added to the menu!`);
+        else return msg.channel.send(` **${song.title}** تم اضافه الاغنية الي القائمة!`);
     }
     return undefined;
 }
@@ -226,7 +226,7 @@ function play(guild, song) {
         .on('error', error => console.error(error));
     dispatcher.setVolumeLogarithmic(serverQueue.volume / 5);
  
-    serverQueue.textChannel.send(`**playing Now** : **${song.title}**`);
+    serverQueue.textChannel.send(`بدء تشغيل : **${song.title}**`);
 }
  
 const adminprefix = "$vip";
@@ -267,7 +267,6 @@ ${prefix}vol ⇏ لتغيير درجة الصوت 100 - 0
 ${prefix}leave⇏ لإخرآج البوت من الروم
 ${prefix}np ⇏ لمعرفة الأغنية المشغلة حآليا
 ${prefix}queue ⇏ لمعرفة قآئمة التشغيل
-`` Claudius Server . ``
  `)
    message.channel.sendEmbed(embed)
    
