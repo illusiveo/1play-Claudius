@@ -3,7 +3,7 @@ const client = new Discord.Client();
  
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`);
-   client.user.setActivity("Type =play",{type: 'WATCHING'})
+   client.user.setActivity("Type =help",{type: 'WATCHING'})
   console.log('')
   console.log('')
   console.log('╔[═════════════════════════════════════════════════════════════════]╗')
@@ -64,7 +64,7 @@ client.on('message', async msg => {
         }
  
         if (!permissions.has('EMBED_LINKS')) {
-            return msg.channel.sendMessage("**يجب توآفر برمشن `EMBED LINKS`لدي **")
+            return msg.channel.sendMessage(":no_good: **يجب توآفر برمشن `EMBED LINKS`لدي **")
         }
  
         if (url.match(/^https?:\/\/(www.youtube.com|youtube.com)\/playlist(.*)$/)) {
@@ -88,7 +88,7 @@ client.on('message', async msg => {
                     .setDescription(`**الرجاء إختيار رقم المقطع** :
 ${videos.map(video2 => `[**${++index} **] \`${video2.title}\``).join('\n')}`)
  
-                    .setFooter("Da Shine#0022")
+                    .setFooter("Some Problem? contact Developer! : **Da Shine#0022**")
                     msg.channel.sendEmbed(embed1).then(message =>{message.delete(20000)})
                    
                     // eslint-disable-next-line max-depth
@@ -100,13 +100,13 @@ ${videos.map(video2 => `[**${++index} **] \`${video2.title}\``).join('\n')}`)
                         });
                     } catch (err) {
                         console.error(err);
-                        return msg.channel.send(':x: **لم يتم إختيار مقطع صوتي**');
+                        return msg.channel.send(':no_good: **لم يتم إختيار مقطع صوتي**');
                     }
                     const videoIndex = parseInt(response.first().content);
                     var video = await youtube.getVideoByID(videos[videoIndex - 1].id);
                 } catch (err) {
                     console.error(err);
-                    return msg.channel.send(':x: **لا يتوفر نتائج بحث** ');
+                    return msg.channel.send(':no_good: **لا يتوفر نتائج بحث** ');
                 }
             }
  
@@ -137,7 +137,7 @@ ${videos.map(video2 => `[**${++index} **] \`${video2.title}\``).join('\n')}`)
         return msg.channel.sendEmbed(embedNP);
     } else if (command === `queue`) {
        
-        if (!serverQueue) return msg.channel.send(':x: **لا يوجد شيء حالي قيد التشغيل**');
+        if (!serverQueue) return msg.channel.send(':no_good: **لا يوجد شيء حالي قيد التشغيل**');
         let index = 0;
        
         const embedqu = new Discord.RichEmbed()
@@ -152,7 +152,7 @@ ${serverQueue.songs.map(song => `**${++index} -** ${song.title}`).join('\n')}
             serverQueue.connection.dispatcher.pause();
             return msg.channel.send(':white_check_mark:تم إيقاف الموسيقى مؤقتا!');
         }
-        return msg.channel.send('لا يوجد شيء حالي ف العمل.');
+        return msg.channel.send(':no_good: **لا يوجد شيء حالي ف العمل**');
     } else if (command === "resume") {
         if (serverQueue && !serverQueue.playing) {
             serverQueue.playing = true;
