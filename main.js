@@ -7,7 +7,7 @@ const bot = new RhythmBot({
         symbol: '-' // command symbol trigger
     },
     discord: {
-        token: '<BOT-TOKEN-HERE>'//,
+        token: 'NTMwNzA3OTY1OTU1NTM4OTU0.DzYo8Q.36p1ntYfATaxa1Dtvvg9ZsPF9qw'//,
         // manage: {
         //     channels: [ 
         //         // Example text channel manager, limits media channel to 5 posts, limit should probably be less than 100 to avoid bugs
