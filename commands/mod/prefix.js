@@ -7,7 +7,7 @@ const config = require('../../config.json')
 const info = {
     name: 'prefix',
     aliases: [],
-    description: 'Custom prefix for this guild',
+    description: 'k.',
     runIn: ['text'],
     ownerOnly: false
 }
