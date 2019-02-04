@@ -1,15 +1,15 @@
 {
 	"version": "0.3",
 	"support": "invite-to-your-support-server",
-	"token": "put-your-token-here",
-	"prefix": "/",
+	"token": "NTMwNzA3OTY1OTU1NTM4OTU0.Dx4QAQ.b6Q4VKKZVb92_PSHQWNHqBw19r4",
+	"prefix": "k.",
 	"owner": [
-		"put-your-userid-here"
+		"229192961907228674"
 	],
 	"guilds": [],
 	"dmCommand": true,
 	"tracking": [],
-	"botname": "BotName",
+	"botname": "Kara",
 	"database": "mongodb-connection-uri",
 	"cleverbot": {
 		"user": "cleverbot.io_api_user",
@@ -23,10 +23,10 @@
 		"token": "put-api-token"
 	},
 	"presence": [
-		"help",
-		"@mention help",
-		["you", "WATCHING"],
-		"with your heart",
+		"k.help | uwu",
+		"k.help | By : illusive!",
+		["k.help | You", "WATCHING"],
+		"With your heart",
 		"puzzle",
 		["Hyouka", "WATCHING"]
 	],
