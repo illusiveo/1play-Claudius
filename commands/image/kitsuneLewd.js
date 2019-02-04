@@ -5,24 +5,25 @@ const nekoLife = new NekoLife();
 const Embed = require('../../util/embed');
 
 const info = {
-    name: "avatar",
+    name: "kitsunelewd",
     aliases: [],
-    description: "Suggesting avatar",
+    description: "#nsfw fox girls",
     runIn: ["text", "dm"],
+    isNSFW: true,
     ownerOnly: false
 }
 
-class Avatar extends Command {
+class Kitsune16 extends Command {
     constructor(client, module) {
 		super(client, info, module);
 	}
 
     run(msg, args) {
-        var link = nekoLife.image('avatar');
+        var link = nekoLife.image('erok');
         this.sendFromMessage(msg, {
             embed: Embed.create(link, msg.author.tag)
         });
     }
 }
 
-module.exports = Avatar;
+module.exports = Kitsune16;

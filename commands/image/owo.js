@@ -1,28 +1,28 @@
 const Command = require('../Command');
-const NekoLife = require('../../services/nekoLife');
-const nekoLife = new NekoLife();
+const RamMoe = require('../../services/ramMoe');
+const ramMoe = new RamMoe();
 
 const Embed = require('../../util/embed');
 
 const info = {
-    name: "avatar",
+    name: "owo",
     aliases: [],
-    description: "Suggesting avatar",
+    description: "owo what is this command",
     runIn: ["text", "dm"],
     ownerOnly: false
 }
 
-class Avatar extends Command {
+class OwO extends Command {
     constructor(client, module) {
 		super(client, info, module);
 	}
 
     run(msg, args) {
-        var link = nekoLife.image('avatar');
+        var link = ramMoe.image('owo');
         this.sendFromMessage(msg, {
             embed: Embed.create(link, msg.author.tag)
         });
     }
 }
 
-module.exports = Avatar;
+module.exports = OwO;

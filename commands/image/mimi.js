@@ -5,24 +5,24 @@ const nekoLife = new NekoLife();
 const Embed = require('../../util/embed');
 
 const info = {
-    name: "avatar",
+    name: "mimi",
     aliases: [],
-    description: "Suggesting avatar",
+    description: "Kemonomimi",
     runIn: ["text", "dm"],
     ownerOnly: false
 }
 
-class Avatar extends Command {
+class Mimi extends Command {
     constructor(client, module) {
 		super(client, info, module);
 	}
 
     run(msg, args) {
-        var link = nekoLife.image('avatar');
+        var link = nekoLife.image('kemonomimi');
         this.sendFromMessage(msg, {
             embed: Embed.create(link, msg.author.tag)
         });
     }
 }
 
-module.exports = Avatar;
+module.exports = Mimi;

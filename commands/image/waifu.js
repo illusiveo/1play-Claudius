@@ -5,24 +5,24 @@ const nekoLife = new NekoLife();
 const Embed = require('../../util/embed');
 
 const info = {
-    name: "avatar",
+    name: "waifu",
     aliases: [],
-    description: "Suggesting avatar",
+    description: "Bring some waifu to your laifu",
     runIn: ["text", "dm"],
     ownerOnly: false
 }
 
-class Avatar extends Command {
+class Waifu extends Command {
     constructor(client, module) {
 		super(client, info, module);
 	}
 
     run(msg, args) {
-        var link = nekoLife.image('avatar');
+        var link = nekoLife.image('waifu');
         this.sendFromMessage(msg, {
-            embed: Embed.create(link, msg.author.tag)
+            embed: Embed.create(link, msg.author.tag, '**Here some waifu for your laifu**')
         });
     }
 }
 
-module.exports = Avatar;
+module.exports = Waifu;
