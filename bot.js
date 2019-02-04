@@ -85,4 +85,3 @@ client.login(config.token)
     client.errorLogger.error(err, true);
 });
  
-client.login(process.env.BOT_TOKEN);
